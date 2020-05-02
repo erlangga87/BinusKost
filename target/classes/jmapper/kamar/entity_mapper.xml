@@ -1,0 +1,5 @@
+<jmapper>
+    <class name="id.ac.binus.programming.kost.user.entity.Kamar">
+        <global/>
+    </class>
+</jmapper>

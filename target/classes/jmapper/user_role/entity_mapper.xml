@@ -1,0 +1,5 @@
+<jmapper>
+    <class name="id.ac.binus.programming.kost.user.entity.UserRole">
+        <global/>
+    </class>
+</jmapper>
