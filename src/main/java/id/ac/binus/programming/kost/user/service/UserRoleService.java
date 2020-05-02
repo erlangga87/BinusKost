@@ -21,7 +21,9 @@ public class UserRoleService {
         return userRoleRepository.findAll();
     }
 
-    public UserRole findById(String id) {
+    public UserRole findById(String id) throws Exception {
+        if (id == null || id == "")
+            throw new Exception("roleid is required");
         return userRoleRepository.find(id);
     }
 

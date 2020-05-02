@@ -37,7 +37,9 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User findById(String id) {
+    public User findById(String id) throws Exception {
+        if (id == null || id == "")
+            throw new Exception("userid is required");
         return userRepository.find(id);
     }
 

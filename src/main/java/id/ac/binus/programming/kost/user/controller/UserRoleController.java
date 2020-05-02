@@ -98,18 +98,29 @@ public class UserRoleController {
         String nameofCurrMethod = new Throwable()
                 .getStackTrace()[0]
                 .getMethodName();
-        UserRole UserRoleUpdated = userRoleService.findById(userRoleDto.getRoleid());
+        try {
+            UserRole UserRoleUpdated = userRoleService.findById(userRoleDto.getRoleid());
 
-        userRoleDto = mapper2Dto.getDestination(UserRoleUpdated);
+            userRoleDto = mapper2Dto.getDestination(UserRoleUpdated);
 
-        ResponseSuccess<UserRoleDTO> responseSuccess = new ResponseSuccess<>();
-        responseSuccess.setMessage("Success Show Data");
-        responseSuccess.setService(nameofCurrMethod);
-        responseSuccess.setData(userRoleDto);
+            ResponseSuccess<UserRoleDTO> responseSuccess = new ResponseSuccess<>();
+            responseSuccess.setMessage("Success Show Data");
+            responseSuccess.setService(nameofCurrMethod);
+            responseSuccess.setData(userRoleDto);
 
-        return ResponseEntity.status(HttpStatus.OK).
-                contentType(MediaType.APPLICATION_JSON)
-                .body(responseSuccess);
+            return ResponseEntity.status(HttpStatus.OK).
+                    contentType(MediaType.APPLICATION_JSON)
+                    .body(responseSuccess);
+        }catch (Exception e){
+            ResponseSuccess<UserRoleDTO> responseSuccess = new ResponseSuccess<>();
+            responseSuccess.setMessage("Success Show Data");
+            responseSuccess.setService(nameofCurrMethod);
+            responseSuccess.setData(userRoleDto);
+
+            return ResponseEntity.status(HttpStatus.OK).
+                    contentType(MediaType.APPLICATION_JSON)
+                    .body(responseSuccess);
+        }
 
     }
 

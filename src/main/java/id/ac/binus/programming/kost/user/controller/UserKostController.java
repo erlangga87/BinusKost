@@ -126,19 +126,29 @@ public class UserKostController {
         String nameofCurrMethod = new Throwable()
                 .getStackTrace()[0]
                 .getMethodName();
+        try {
+            User user = userService.findById(userDTO.getUserid());
 
-        User user = userService.findById(userDTO.getUserid());
+            userDTO = mapper2Dto.getDestination(user);
 
-        userDTO = mapper2Dto.getDestination(user);
+            ResponseSuccess<UserDTO> responseSuccess = new ResponseSuccess<>();
+            responseSuccess.setMessage("Success Show Data");
+            responseSuccess.setService(nameofCurrMethod);
+            responseSuccess.setData(userDTO);
 
-        ResponseSuccess<UserDTO> responseSuccess = new ResponseSuccess<>();
-        responseSuccess.setMessage("Success Show Data");
-        responseSuccess.setService(nameofCurrMethod);
-        responseSuccess.setData(userDTO);
+            return ResponseEntity.status(HttpStatus.OK).
+                    contentType(MediaType.APPLICATION_JSON)
+                    .body(responseSuccess);
+        }catch (Exception e){
+            ResponseSuccess<UserDTO> responseSuccess = new ResponseSuccess<>();
+            responseSuccess.setMessage("Success Show Data");
+            responseSuccess.setService(nameofCurrMethod);
+            responseSuccess.setData(userDTO);
 
-        return ResponseEntity.status(HttpStatus.OK).
-                contentType(MediaType.APPLICATION_JSON)
-                .body(responseSuccess);
+            return ResponseEntity.status(HttpStatus.OK).
+                    contentType(MediaType.APPLICATION_JSON)
+                    .body(responseSuccess);
+        }
 
     }
 

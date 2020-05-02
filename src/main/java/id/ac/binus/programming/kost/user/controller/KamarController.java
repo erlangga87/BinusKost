@@ -194,4 +194,39 @@ public class KamarController {
 
     }
 
+    @PostMapping(value = "/sewakamar" ,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseSuccess<KamarDTO>> sewakamar(@RequestBody @Validated KamarDTO kamarDTO) {
+        /* Untuk mendapatkan nama method */
+        String nameofCurrMethod = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        try {
+            Kamar kamarEntity = mapper2Entity.getDestination(kamarDTO);
+            Kamar kamar = kamarService.sewakamar(kamarEntity);
+            kamarDTO = mapper2Dto.getDestination(kamar);
+
+            ResponseSuccess<KamarDTO> responseSuccess = new ResponseSuccess<>();
+            responseSuccess.setMessage("Success Sewa Kamar");
+            responseSuccess.setService(nameofCurrMethod);
+            responseSuccess.setData(kamarDTO);
+
+            return ResponseEntity.status(HttpStatus.OK).
+                    contentType(MediaType.APPLICATION_JSON)
+                    .body(responseSuccess);
+        }catch (Exception e){
+            /* Response */
+            ResponseSuccess<KamarDTO> responseSuccess = new ResponseSuccess<>();
+            responseSuccess.setMessage(e.getMessage());
+            responseSuccess.setService(nameofCurrMethod);
+            responseSuccess.setTimestamp(new Timestamp(System.currentTimeMillis()));
+            responseSuccess.setData(null);
+
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(responseSuccess);
+        }
+
+    }
+
 }

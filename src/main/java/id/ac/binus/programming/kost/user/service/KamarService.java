@@ -1,5 +1,6 @@
 package id.ac.binus.programming.kost.user.service;
 
+import id.ac.binus.programming.kost.user.entity.EnumStatusKamar;
 import id.ac.binus.programming.kost.user.entity.Kamar;
 import id.ac.binus.programming.kost.user.entity.User;
 import id.ac.binus.programming.kost.user.entity.UserRole;
@@ -30,7 +31,7 @@ public class KamarService {
     }
 
     public Kamar findById(String kamarid) throws Exception {
-        if (kamarid == null)
+        if (kamarid == null || kamarid == "")
             throw new Exception("kamarid is required");
         return kamarRepository.find(kamarid);
     }
@@ -40,6 +41,21 @@ public class KamarService {
         User penghuni = userRepository.find(kamar.getPenghuni());
         if (penghuni == null)
             throw new Exception("penghuni not found");
+        return kamarRepository.save(kamar);
+    }
+    public Kamar sewakamar(Kamar kamar) throws Exception {
+        if (kamar.getKamarid() == null || kamar.getKamarid() == "")
+            throw new Exception("kamarid is required");
+        if (kamar.getPenghuni() == null || kamar.getPenghuni() == "")
+            throw new Exception("penghuni is required");
+        Kamar kamarDB = kamarRepository.find(kamar.getKamarid());
+        if (kamarDB == null)
+            throw new Exception("kamarid not found");
+        User penghuni = userRepository.find(kamar.getPenghuni());
+        if (penghuni == null)
+            throw new Exception("penghuni not found");
+        if (kamarDB.getStatus() != null && !kamarDB.getStatus().equals(EnumStatusKamar.KOSONG))
+            throw new Exception("tidak bisa memesan kamar ini karena sedang dipesan atau penuh");
         return kamarRepository.save(kamar);
     }
 
