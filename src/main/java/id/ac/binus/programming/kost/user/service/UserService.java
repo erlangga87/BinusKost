@@ -40,7 +40,10 @@ public class UserService {
     public User findById(String id) throws Exception {
         if (id == null || id == "")
             throw new Exception("userid is required");
-        return userRepository.find(id);
+        User userDB = userRepository.find(id);
+        if (userDB == null)
+            throw new Exception("userid not found");
+        return null;
     }
 
     public User updateById(User user, String operation) throws Exception {
@@ -61,7 +64,7 @@ public class UserService {
         UserRole userRoleDB =  userRoleRepository.find(user.getRoleid());
         if (userRoleDB == null)
             throw new Exception("roleid not found");
-        User userDB = userRepository.findByUsernameAndPassword(user.getEmail(),user.getUsername());
+        User userDB = userRepository.findByEmailAndUsername(user.getEmail(),user.getUsername());
         if (userDB !=null)
             throw new Exception("email or username already exist");
         user.setPassword(md5Java(user.getPassword()));

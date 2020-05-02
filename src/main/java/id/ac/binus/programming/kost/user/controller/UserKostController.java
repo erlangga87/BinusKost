@@ -141,9 +141,9 @@ public class UserKostController {
                     .body(responseSuccess);
         }catch (Exception e){
             ResponseSuccess<UserDTO> responseSuccess = new ResponseSuccess<>();
-            responseSuccess.setMessage("Success Show Data");
+            responseSuccess.setMessage(e.getMessage());
             responseSuccess.setService(nameofCurrMethod);
-            responseSuccess.setData(userDTO);
+            responseSuccess.setData(null);
 
             return ResponseEntity.status(HttpStatus.OK).
                     contentType(MediaType.APPLICATION_JSON)

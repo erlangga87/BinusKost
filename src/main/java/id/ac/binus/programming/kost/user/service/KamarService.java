@@ -33,7 +33,10 @@ public class KamarService {
     public Kamar findById(String kamarid) throws Exception {
         if (kamarid == null || kamarid == "")
             throw new Exception("kamarid is required");
-        return kamarRepository.find(kamarid);
+        Kamar kamarDB = kamarRepository.find(kamarid);
+        if (kamarDB == null)
+            throw new Exception("kamarid notfound");
+        return kamarDB;
     }
 
     public Kamar updateById(Kamar kamar,String operation) throws Exception {

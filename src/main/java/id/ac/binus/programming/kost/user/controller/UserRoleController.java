@@ -113,9 +113,9 @@ public class UserRoleController {
                     .body(responseSuccess);
         }catch (Exception e){
             ResponseSuccess<UserRoleDTO> responseSuccess = new ResponseSuccess<>();
-            responseSuccess.setMessage("Success Show Data");
+            responseSuccess.setMessage(e.getMessage());
             responseSuccess.setService(nameofCurrMethod);
-            responseSuccess.setData(userRoleDto);
+            responseSuccess.setData(null);
 
             return ResponseEntity.status(HttpStatus.OK).
                     contentType(MediaType.APPLICATION_JSON)
