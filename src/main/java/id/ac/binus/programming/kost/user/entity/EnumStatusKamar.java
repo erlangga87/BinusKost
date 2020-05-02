@@ -3,7 +3,7 @@ package id.ac.binus.programming.kost.user.entity;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 public enum EnumStatusKamar {
-    KOSONG, MENUNGGU_KONFIRMASI, PENUH;
+    KOSONG, DISEWA;
 
     @JsonCreator
     public static EnumStatusKamar create(String value) {

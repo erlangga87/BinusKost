@@ -43,7 +43,7 @@ public class UserService {
         User userDB = userRepository.find(id);
         if (userDB == null)
             throw new Exception("userid not found");
-        return null;
+        return userDB;
     }
 
     public User updateById(User user, String operation) throws Exception {

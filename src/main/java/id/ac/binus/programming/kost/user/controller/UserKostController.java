@@ -145,7 +145,7 @@ public class UserKostController {
             responseSuccess.setService(nameofCurrMethod);
             responseSuccess.setData(null);
 
-            return ResponseEntity.status(HttpStatus.OK).
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).
                     contentType(MediaType.APPLICATION_JSON)
                     .body(responseSuccess);
         }

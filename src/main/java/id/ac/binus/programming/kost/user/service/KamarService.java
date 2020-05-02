@@ -30,20 +30,31 @@ public class KamarService {
         return kamarRepository.findAll();
     }
 
-    public Kamar findById(String kamarid) throws Exception {
-        if (kamarid == null || kamarid == "")
+    public Kamar findById(Kamar kamar) throws Exception {
+        if ((kamar.getKamarid() == null || kamar.getKamarid() == "")
+                && (kamar.getPenghuni() == null || kamar.getPenghuni()==""))
             throw new Exception("kamarid is required");
-        Kamar kamarDB = kamarRepository.find(kamarid);
-        if (kamarDB == null)
-            throw new Exception("kamarid notfound");
+        Kamar kamarDB = new Kamar();
+        if (kamar.getKamarid() != null && kamar.getKamarid() != ""){
+            kamarDB = kamarRepository.find(kamar.getKamarid());
+            if (kamarDB == null)
+                throw new Exception("kamarid notfound");
+        }else if (kamar.getPenghuni() != null || kamar.getPenghuni() != ""){
+            kamarDB = kamarRepository.findByPenghuni(kamar.getPenghuni());
+            if (kamarDB == null)
+                throw new Exception("penghuni notfound");
+        }
         return kamarDB;
     }
 
     public Kamar updateById(Kamar kamar,String operation) throws Exception {
         validation(kamar, operation);
-        User penghuni = userRepository.find(kamar.getPenghuni());
-        if (penghuni == null)
-            throw new Exception("penghuni not found");
+        if (kamar.getPenghuni() != null && kamar.getPenghuni() != ""){
+            User penghuni = userRepository.find(kamar.getPenghuni());
+            if (penghuni == null)
+                throw new Exception("penghuni not found");
+        }
+
         return kamarRepository.save(kamar);
     }
     public Kamar sewakamar(Kamar kamar) throws Exception {
@@ -59,15 +70,19 @@ public class KamarService {
             throw new Exception("penghuni not found");
         if (kamarDB.getStatus() != null && !kamarDB.getStatus().equals(EnumStatusKamar.KOSONG))
             throw new Exception("tidak bisa memesan kamar ini karena sedang dipesan atau penuh");
-        return kamarRepository.save(kamar);
+        kamarDB.setStatus(EnumStatusKamar.DISEWA);
+        kamarDB.setPenghuni(kamar.getPenghuni());
+        return kamarRepository.save(kamarDB);
     }
 
     public Kamar create(Kamar kamar,String operation) throws Exception {
         Calendar calendar = Calendar.getInstance();
         validation(kamar, operation);
-        User penghuni = userRepository.find(kamar.getPenghuni());
-        if (penghuni == null)
-            throw new Exception("penghuni not found");
+        if (kamar.getPenghuni() != null && kamar.getPenghuni()!=""){
+            User penghuni = userRepository.find(kamar.getPenghuni());
+            if (penghuni == null)
+                throw new Exception("penghuni not found");
+        }
         kamar.setKamarid(GenerateId(calendar.getTime(),4));
         return kamarRepository.save(kamar);
     }

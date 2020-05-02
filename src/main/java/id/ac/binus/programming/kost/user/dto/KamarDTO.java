@@ -2,6 +2,8 @@ package id.ac.binus.programming.kost.user.dto;
 
 import id.ac.binus.programming.kost.user.entity.EnumStatusKamar;
 
+import javax.persistence.Column;
+
 public class KamarDTO {
     private String kamarid;
     private String penghuni;
@@ -11,6 +13,8 @@ public class KamarDTO {
     private Boolean kmdalam;
     private Boolean ac;
     private EnumStatusKamar status;
+    private Integer no_kamar;
+    private String gambar_kamar;
 
     public String getKamarid() {
         return kamarid;
@@ -74,5 +78,21 @@ public class KamarDTO {
 
     public void setStatus(EnumStatusKamar status) {
         this.status = status;
+    }
+
+    public Integer getNo_kamar() {
+        return no_kamar;
+    }
+
+    public void setNo_kamar(Integer no_kamar) {
+        this.no_kamar = no_kamar;
+    }
+
+    public String getGambar_kamar() {
+        return gambar_kamar;
+    }
+
+    public void setGambar_kamar(String gambar_kamar) {
+        this.gambar_kamar = gambar_kamar;
     }
 }

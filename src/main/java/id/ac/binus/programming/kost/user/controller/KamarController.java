@@ -131,7 +131,8 @@ public class KamarController {
                 .getStackTrace()[0]
                 .getMethodName();
         try {
-            Kamar kamar = kamarService.findById(kamarDto.getKamarid());
+            Kamar kamarEntity = mapper2Entity.getDestination(kamarDto);
+            Kamar kamar = kamarService.findById(kamarEntity);
 
             kamarDto = mapper2Dto.getDestination(kamar);
 

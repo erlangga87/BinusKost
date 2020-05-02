@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface KamarRepository extends JpaRepository<Kamar, String> {
-    @Query(value = "SELECT m FROM Kamar m ")
+    @Query(value = "SELECT m FROM Kamar m ORDER BY  m.no_kamar asc ")
     List<Kamar> findAll();
 
     @Query(value = "SELECT m FROM Kamar m where m.kamarid=:id ")
@@ -19,4 +19,6 @@ public interface KamarRepository extends JpaRepository<Kamar, String> {
 
     @Query(value = "delete from Kamar m WHERE m.kamarid=:id ")
     Kamar delete(@Param("id") String id);
+
+    Kamar findByPenghuni(String penghuni);
 }

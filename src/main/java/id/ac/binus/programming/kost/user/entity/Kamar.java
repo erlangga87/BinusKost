@@ -31,6 +31,12 @@ public class Kamar {
     @Enumerated(EnumType.STRING)
     private EnumStatusKamar status;
 
+    @Column(name = "no_kamar")
+    private Integer no_kamar;
+
+    @Column(name = "gambar_kamar")
+    private String gambar_kamar;
+
     public String getKamarid() {
         return kamarid;
     }
@@ -93,5 +99,21 @@ public class Kamar {
 
     public void setStatus(EnumStatusKamar status) {
         this.status = status;
+    }
+
+    public Integer getNo_kamar() {
+        return no_kamar;
+    }
+
+    public void setNo_kamar(Integer no_kamar) {
+        this.no_kamar = no_kamar;
+    }
+
+    public String getGambar_kamar() {
+        return gambar_kamar;
+    }
+
+    public void setGambar_kamar(String gambar_kamar) {
+        this.gambar_kamar = gambar_kamar;
     }
 }
